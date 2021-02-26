@@ -20,8 +20,8 @@ def derive_wallets(mnemonic, numderive, coin):
     p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
     output, err = p.communicate()
     p_status = p.wait()
-    keys = json.loads(output)
-    print(keys)
+    return json.loads(output)
+
 
 coins = {'eth':derive_wallets(mnemonic=mnemonic, coin=ETH, numderive=3), 'btc-test':derive_wallets(mnemonic=mnemonic,coin=BTCTEST,numderive=3)}
 
