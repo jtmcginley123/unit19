@@ -12,7 +12,6 @@ load_dotenv()
 
 mnemonic = os.getenv('MNEMONIC')
 w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
-w3.eth.getBalance(0x3370720875ed0014a90c7653c653c099f458a1a3)
 
 private_key = os.getenv("PRIVATE_KEY")
 
