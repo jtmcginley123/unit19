@@ -17,7 +17,7 @@ w3.eth.getBalance(0x3370720875ed0014a90c7653c653c099f458a1a3)
 private_key = os.getenv("PRIVATE_KEY")
 
 def derive_wallets(mnemonic, numderive, coin):
-    command = 'php derive -g --mnemonic="{mnemonic}" --numderive="{numderive}" --coin="{coin}" --cols=path,address,privkey,pubkey --format=json'
+    command = './derive -g --mnemonic="{mnemonic}" --numderive="{numderive}" --coin="{coin}" --cols=path,address,privkey,pubkey --format=json'
     p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
     output, err = p.communicate()
     p_status = p.wait()
