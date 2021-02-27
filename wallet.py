@@ -1,7 +1,6 @@
 import subprocess
 import json
 from dotenv import load_dotenv
-from constants import *
 from web3 import Web3 
 import os
 from eth_account import Account 
