@@ -21,7 +21,8 @@ def derive_wallets(mnemonic, coin, numderive):
     (output, err) = p.communicate()
     p_status = p.wait()
     print(output)
-    return json.loads(output)
+    result = json.loads(output)
+    return result
 
 
 coins = {'eth':derive_wallets(mnemonic=mnemonic, coin=ETH, numderive=3), 'btc-test':derive_wallets(mnemonic=mnemonic, coin=BTCTEST, numderive=3)}
