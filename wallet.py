@@ -10,7 +10,7 @@ from bit.network import NetworkAPI
 
 load_dotenv()
 
-mnemonic = os.getenv('mnemonic')
+mnemonic = os.getenv('MNEMONIC')
 w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
 
 private_key = os.getenv("PRIVATE_KEY")
