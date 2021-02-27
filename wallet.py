@@ -9,6 +9,7 @@ from bit import Key
 from bit import PrivateKeyTestnet
 from bit import wif_to_key
 from bit.network import NetworkAPI
+from web3.middleware import geth_poa_middleware
 
 load_dotenv()
 
@@ -17,16 +18,16 @@ privkey = os.getenv('PRIVATE_KEY')
 w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
 print(mnemonic)
 
-def derive_wallets(mnemonic, coin, numderive):
-    command = './derive -g --mnemonic="'+str(mnemonic)+'" --numderive='+str(numderive)+' --coin='+str(coin)+' --format=json'
+w3.middleware_onion.inject(geth_poa_middleware, layer=0)
+
+def derive_wallets(mnemonic=mnemonic, numderive=3, coin=BTCTEST):
+    command = './derive -g --mnemonic="{mnemonic}" --numderive="{numderive}" --coin="{coin}" --format=json'
     p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
     output, err = p.communicate()
     p_status = p.wait()
-    keys = json.loads(output)
-    print(keys)
     return json.loads(output)
     
-coins = {'eth':derive_wallets(mnemonic=mnemonic,coin=ETH,numderive=3), 'btc-test':derive_wallets(mnemonic=mnemonic,coin=BTCTEST,numderive=3)}
+coins = {ETH : derive_wallets(coin=ETH), BTCTEST : derive_wallets(coin=BTCTEST)}
 
 def priv_key_to_account (coin, priv_key):
     if coin == ETH:
