@@ -18,15 +18,13 @@ private_key = os.getenv("PRIVATE_KEY")
 def derive_wallets(mnemonic, coin, numderive):
     command = 'php derive -g --mnemonic=mnemonic --coin=coin --numderive=numderive --cols=path,address,privkey,pubkey --format=json'
     p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
-    (output, err) = p.communicate()
+    output, err = p.communicate()
     p_status = p.wait()
     return json.loads(output)
 
 
 coins={'eth':derive_wallets(mnemonic=mnemonic,coin=ETH,numderive=3),'btc-test':derive_wallets(mnemonic=mnemonic,coin=BTCTEST,numderive=3)}
 
-eth_privatekey = coins['eth'][0]['privkey']
-btc_privatekey = coins['btc-test'][0]['privkey']
 
 def priv_key_to_account (coin, priv_key):
     if coin == ETH:
@@ -34,6 +32,8 @@ def priv_key_to_account (coin, priv_key):
     if coin == BTCTEST:
         return PrivateKeyTestnet(priv_key)
 
+eth_privatekey = coins['eth'][0]['privkey']
+btc_privatekey = coins['btc-test'][0]['privkey']
 
 def create_tx (coin, account, to, amount):
     if coin == 'ETH':
