@@ -1,9 +1,10 @@
 import subprocess
 import json
 from constants import *
+import os
 from dotenv import load_dotenv
 from web3 import Web3
-import os
+from eth_account import Account
 from bit import Key
 from bit import PrivateKeyTestnet
 from bit import wif_to_key
@@ -17,7 +18,7 @@ w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
 print(mnemonic)
 
 def derive_wallets(mnemonic, coin, numderive):
-    command = './derive -g --mnemonic="'+str(mnemonic)+'" --numderive='+str(numderive)+' --coin='+str(coin)+' --format=json'
+    command = './derive -g --mnemonic="'+str(mnemonic)+'" --col=path,address,privkey,pubkey,pubkeyhash, --numderive='+str(numderive)+' --coin='+str(coin)+' --format=json'
     p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
     output, err = p.communicate()
     p_status = p.wait()
