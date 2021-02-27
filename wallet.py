@@ -2,9 +2,10 @@ import subprocess
 import json
 from constants import *
 from dotenv import load_dotenv
-from web3 import Web3 
+from web3 import Web3
 import os
-from eth_account import Account 
+from eth_account import Account
+from bit import wif_to_key
 from bit.network import NetworkAPI
 
 load_dotenv()
@@ -16,7 +17,7 @@ w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
 
 
 def derive_wallets(mnemonic, coin, numderive):
-    command = './derive -g --mnemonic=mnemonic --coin=coin --numderive=numderive --cols=path,address,privkey,pubkey --format=json'
+    command = 'php derive -g --mnemonic="'+str(mnemonic)+'" --numderive='+str(numderive)+' --coin='+str(coin)+' --format=json'
     p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
     (output, err) = p.communicate()
     p_status = p.wait()
