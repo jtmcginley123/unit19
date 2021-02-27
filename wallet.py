@@ -4,12 +4,10 @@ from constants import *
 from dotenv import load_dotenv
 from web3 import Web3
 import os
-from eth_account import Account
 from bit import Key
 from bit import PrivateKeyTestnet
 from bit import wif_to_key
 from bit.network import NetworkAPI
-
 
 load_dotenv()
 
@@ -17,7 +15,6 @@ mnemonic = os.getenv('MNEMONIC')
 privkey = os.getenv('PRIVATE_KEY')
 w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
 print(mnemonic)
-
 
 def derive_wallets(mnemonic, coin, numderive):
     command = './derive -g --mnemonic="'+str(mnemonic)+'" --numderive='+str(numderive)+' --coin='+str(coin)+' --format=json'
@@ -28,9 +25,7 @@ def derive_wallets(mnemonic, coin, numderive):
     print(keys)
     return json.loads(output)
     
-
 coins = {'eth':derive_wallets(mnemonic=mnemonic,coin=ETH,numderive=3), 'btc-test':derive_wallets(mnemonic=mnemonic,coin=BTCTEST,numderive=3)}
-
 
 def priv_key_to_account (coin, priv_key):
     if coin == ETH:
@@ -40,7 +35,6 @@ def priv_key_to_account (coin, priv_key):
 
 eth_privatekey = coins['eth'][0]['privkey']
 btc_privatekey = coins['btc-test'][0]['privkey']
-
 
 def create_tx (coin, account, to, amount):
     if coin == 'ETH':
@@ -77,4 +71,3 @@ def send_tx (coin, account, to, amount):
         raw_tx_btctest = create_tx(coin, account, to, amount)
         sign_tx_btctest = account.sign_transaction(raw_tx_btctest)
         return NetworkAPI.broadcast_tx_testnet(sign_tx_btctest)
-        
