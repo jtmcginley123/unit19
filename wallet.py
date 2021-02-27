@@ -71,3 +71,5 @@ def send_tx (coin, account, to, amount):
         raw_tx_btctest = create_tx(coin, account, to, amount)
         sign_tx_btctest = account.sign_transaction(raw_tx_btctest)
         return NetworkAPI.broadcast_tx_testnet(sign_tx_btctest)
+
+        
