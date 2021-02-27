@@ -20,14 +20,15 @@ print(mnemonic)
 
 w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
-def derive_wallets(mnemonic=mnemonic, numderive=3, coin=BTCTEST):
-    command = './derive -g --mnemonic="{mnemonic}" --numderive="{numderive}" --coin="{coin}" --format=json'
+def derive_wallets(mnemonic, numderive, coin):
+    command = './derive -g --mnemonic="'+str(mnemonic)+'" --numderive='+str(numderive)+' --coin='+str(coin)+' --format=json'
     p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
     output, err = p.communicate()
     p_status = p.wait()
-    return json.loads(output)
+    keys = json.loads(output)
+    return keys
     
-coins = {ETH : derive_wallets(coin=ETH), BTCTEST : derive_wallets(coin=BTCTEST)}
+coins = {ETH : derive_wallets(mnemonic=mnemonic, numderive=3, coin=ETH), BTCTEST : derive_wallets(mnemonic=mnemonic, numderive=3, coin=BTCTEST)}
 
 def priv_key_to_account (coin, priv_key):
     if coin == ETH:
