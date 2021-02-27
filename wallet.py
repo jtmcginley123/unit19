@@ -31,14 +31,14 @@ coins = {'eth':derive_wallets(mnemonic=mnemonic,coin=ETH,numderive=3), 'btc-test
 def priv_key_to_account (coin, priv_key):
     if coin == ETH:
         return w3.eth.accounts.privateKeyToAccount(priv_key)
-    if coin == BTCTEST:
+    elif coin == BTCTEST:
         return PrivateKeyTestnet(priv_key)
 
 eth_privatekey = coins['eth'][0]['privkey']
 btc_privatekey = coins['btc-test'][0]['privkey']
 
 def create_tx (coin, account, to, amount):
-    if coin == 'ETH':
+    if coin == ETH:
         gasEstimate = w3.eth.estimateGas({
             "from": account.address,
             "to": to,
@@ -54,21 +54,17 @@ def create_tx (coin, account, to, amount):
             "chainID": w3.net.chainID
         }
 
-    if coin == 'BTCTEST':
+    elif coin == BTCTEST:
         return PrivateKeyTestnet.prepare_transaction(account.address, [(to, amount, BTC)])
 
-    if coin != 'ETH' or  'BTCTEST':
-        result = "Please choose ETH or BTCTEST"
-        return result
-
 def send_tx (coin, account, to, amount):
-    if coin == 'ETH':
+    if coin == ETH:
         raw_tx_eth = create_tx(coin, account, to, amount)
         sign_tx_eth = account.sign_transaction(raw_tx_eth)
         result = w3.eth.sendRawTransaction(sign_tx_eth.rawTransaction)
         return result
 
-    if coin == 'BTCTEST':
+    elif coin == BTCTEST:
         raw_tx_btctest = create_tx(coin, account, to, amount)
         sign_tx_btctest = account.sign_transaction(raw_tx_btctest)
         return NetworkAPI.broadcast_tx_testnet(sign_tx_btctest)
