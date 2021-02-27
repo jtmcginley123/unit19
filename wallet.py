@@ -12,7 +12,7 @@ load_dotenv()
 mnemonic = os.getenv('MNEMONIC')
 w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
 
-priv_key = os.getenv("PRIVATE_KEY")
+privkey = os.getenv("PRIVATE_KEY")
 
 def derive_wallets(mnemonic, coin, numderive):
     command = './derive -g --mnemonic=mnemonic --coin=coin --numderive=numderive --cols=path,address,privkey,pubkey --format=json'
@@ -25,11 +25,11 @@ def derive_wallets(mnemonic, coin, numderive):
 coins = {'eth':derive_wallets(mnemonic=mnemonic,coin=ETH,numderive=3), 'btc-test':derive_wallets(mnemonic=mnemonic,coin=BTCTEST,numderive=3)}
 
 
-def priv_key_to_account (coin, priv_key):
+def priv_key_to_account (coin, privkey):
     if coin == ETH:
-        return Account.privateKeyToAccount(priv_key)
+        return Account.privateKeyToAccount(privkey)
     if coin == BTCTEST:
-        return PrivateKeyTestnet(priv_key)
+        return PrivateKeyTestnet(privkey)
 
 eth_privatekey = coins['eth'][0]['privkey']
 btc_privatekey = coins['btc-test'][0]['privkey']
