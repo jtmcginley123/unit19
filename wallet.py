@@ -10,9 +10,10 @@ from bit.network import NetworkAPI
 load_dotenv()
 
 mnemonic = os.getenv('MNEMONIC')
+privkey = os.getenv("PRIVATE_KEY")
 w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
 
-privkey = os.getenv("PRIVATE_KEY")
+
 
 def derive_wallets(mnemonic, coin, numderive):
     command = './derive -g --mnemonic=mnemonic --coin=coin --numderive=numderive --cols=path,address,privkey,pubkey --format=json'
