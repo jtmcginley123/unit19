@@ -23,7 +23,7 @@ def derive_wallets(mnemonic, coin, numderive):
     return json.loads(output)
 
 
-coins={'eth':derive_wallets(mnemonic=mnemonic,coin=ETH,numderive=3),'btc-test':derive_wallets(mnemonic=mnemonic,coin=BTCTEST,numderive=3)}
+coins={'eth':derive_wallets(mnemonic=mnemonic,coin=ETH,numderive=3), 'btc-test':derive_wallets(mnemonic=mnemonic,coin=BTCTEST,numderive=3)}
 
 
 def priv_key_to_account (coin, priv_key):
