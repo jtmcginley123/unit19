@@ -14,8 +14,8 @@ w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
 
 private_key = os.getenv("PRIVATE_KEY")
 
-def derive_wallets(mnemonic, numderive, coin):
-    command = './derive -g --mnemonic="{mnemonic}" --numderive="{numderive}" --coin="{coin}" --cols=path,address,privkey,pubkey --format=json'
+def derive_wallets(mnemonic, coin, numderive):
+    command = './derive -g --mnemonic="{mnemonic}" --coin="{coin}" --numderive="{numderive}" --cols=path,address,privkey,pubkey --format=json'
     p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
     (output, err) = p.communicate()
     p_status = p.wait()
@@ -23,7 +23,7 @@ def derive_wallets(mnemonic, numderive, coin):
     return json.loads(output)
 
 
-coins = {'eth':derive_wallets(mnemonic, ETH, 3), 'btc-test':derive_wallets(mnemonic, BTCTEST, 3)}
+coins = {'eth':derive_wallets(mnemonic=mnemonic, coin=ETH, numderive=3), 'btc-test':derive_wallets(mnemonic=mnemonic, coin=BTCTEST, numderive=3)}
 
 eth_privatekey = coins['eth'][0]['privkey']
 btc_privatekey = coins['btc-test']['privkey']
