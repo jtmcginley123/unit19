@@ -18,7 +18,7 @@ private_key = os.getenv("PRIVATE_KEY")
 def derive_wallets(mnemonic, numderive, coin):
     command = './derive -g --mnemonic="{mnemonic}" --numderive="{numderive}" --coin="{coin}" --cols=path,address,privkey,pubkey --format=json'
     p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
-    output, err = p.communicate()
+    (output, err) = p.communicate()
     p_status = p.wait()
     print(output)
     return json.loads(output)
