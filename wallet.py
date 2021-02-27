@@ -28,7 +28,7 @@ def derive_wallets(mnemonic, coin, numderive):
 coins = {'eth':derive_wallets(mnemonic=mnemonic,coin=ETH,numderive=3),'btc-test':derive_wallets(mnemonic=mnemonic,coin=BTCTEST,numderive=3)}
 
 eth_privatekey = coins['eth'][0]['privkey']
-btc_privatekey = coins['btc-test']['privkey']
+btc_privatekey = coins['btc-test'][0]['privkey']
 
 def priv_key_to_account (coin, priv_key):
     if coin == ETH:
