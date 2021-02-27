@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from web3 import Web3 
 import os
 from eth_account import Account 
-from bit import wif_to_key
 from bit.network import NetworkAPI
 
 load_dotenv()
@@ -13,17 +12,17 @@ load_dotenv()
 mnemonic = os.getenv('MNEMONIC')
 w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
 
-private_key = os.getenv("PRIVATE_KEY")
+priv_key = os.getenv("PRIVATE_KEY")
 
 def derive_wallets(mnemonic, coin, numderive):
     command = './derive -g --mnemonic=mnemonic --coin=coin --numderive=numderive --cols=path,address,privkey,pubkey --format=json'
     p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
-    output, err = p.communicate()
+    (output, err) = p.communicate()
     p_status = p.wait()
     return json.loads(output)
 
 
-coins={'eth':derive_wallets(mnemonic=mnemonic,coin=ETH,numderive=3), 'btc-test':derive_wallets(mnemonic=mnemonic,coin=BTCTEST,numderive=3)}
+coins = {'eth':derive_wallets(mnemonic=mnemonic,coin=ETH,numderive=3), 'btc-test':derive_wallets(mnemonic=mnemonic,coin=BTCTEST,numderive=3)}
 
 
 def priv_key_to_account (coin, priv_key):
