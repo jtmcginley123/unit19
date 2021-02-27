@@ -26,9 +26,10 @@ def derive_wallets(mnemonic, numderive, coin):
     output, err = p.communicate()
     p_status = p.wait()
     keys = json.loads(output)
-    return keys
+    print(keys)
+    return json.loads(output)
     
-coins = {ETH : derive_wallets(mnemonic=mnemonic, numderive=3, coin=ETH), BTCTEST : derive_wallets(mnemonic=mnemonic, numderive=3, coin=BTCTEST)}
+coins = {'eth': derive_wallets(mnemonic=mnemonic, numderive=3, coin=ETH), 'btc-test' : derive_wallets(mnemonic=mnemonic, numderive=3, coin=BTCTEST)}
 
 def priv_key_to_account (coin, priv_key):
     if coin == ETH:
