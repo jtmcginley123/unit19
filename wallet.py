@@ -18,7 +18,7 @@ w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))
 print(mnemonic)
 
 def derive_wallets(mnemonic, coin, numderive):
-    command = './derive -g --mnemonic="'+str(mnemonic)+'" --col=path,address,privkey,pubkey,pubkeyhash, --numderive='+str(numderive)+' --coin='+str(coin)+' --format=json'
+    command = './derive -g --mnemonic="'+str(mnemonic)+'" --numderive='+str(numderive)+' --coin='+str(coin)+' --format=json'
     p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
     output, err = p.communicate()
     p_status = p.wait()
